@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding: Don’t Panic, It’s Just Text!</title>
+    <style>
+      :root {
+        --bg: #f6f5f2;
+        --paper: rgba(255, 255, 255, 0.74);
+        --ink: #111111;
+        --muted: #4f4f4f;
+        --blue: #1aa7ff;
+        --green: #34d399;
+        --orange: #ffb347;
+        --pink: #ff4fb2;
+        --shadow: rgba(17, 17, 17, 0.08);
+        --overlay: rgba(17, 17, 17, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(100%, 1200px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 24px 24px 12px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero {
+        flex: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 12px;
+        padding-bottom: 16px;
+      }
+
+      .hero-inner {
+        width: 100%;
+      }
+
+      .title {
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: -0.08em;
+        line-height: 0.82;
+        text-align: left;
+      }
+
+      .title-line {
+        display: block;
+        font-size: clamp(3.2rem, 9vw, 9.2rem);
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        animation: typing 1.1s steps(22, end) forwards;
+        animation-delay: var(--delay);
+      }
+
+      .line-1 {
+        color: var(--blue);
+      }
+
+      .line-2 {
+        color: var(--green);
+      }
+
+      .line-3 {
+        color: var(--orange);
+      }
+
+      .line-4 {
+        color: var(--pink);
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 0.06em;
+        height: 0.9em;
+        margin-left: 0.06em;
+        vertical-align: middle;
+        background: var(--ink);
+        animation: blink 0.9s step-end infinite;
+      }
+
+      .tagline {
+        margin-top: 18px;
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        line-height: 1.5;
+        font-weight: 700;
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .tagline strong {
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      .cta {
+        margin-top: 30px;
+        display: flex;
+        justify-content: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 2px solid var(--ink);
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(17, 17, 17, 0.08);
+      }
+
+      .btn-primary {
+        background: var(--ink);
+        color: white;
+        border-color: var(--ink);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+
+      .divider {
+        border-top: 1px solid rgba(17, 17, 17, 0.18);
+        margin-top: 14px;
+      }
+
+      footer {
+        padding: 18px 0 24px;
+      }
+
+      .footer-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 18px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .footer-item {
+        color: var(--ink);
+      }
+
+      .footer-item.hash {
+        color: var(--pink);
+      }
+
+      .footer-item.user {
+        color: var(--blue);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: var(--overlay);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+        z-index: 1000;
+      }
+
+      .modal.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-card {
+        width: min(760px, 90%);
+        background: rgba(255, 255, 255, 0.74);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.18);
+        border-radius: 24px;
+        padding: 28px 28px 22px;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: rgba(17, 17, 17, 0.06);
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .modal-card h2 {
+        margin: 0 0 18px;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 900;
+        letter-spacing: -0.06em;
+      }
+
+      .modal-card p {
+        margin: 0 0 14px;
+        font-size: 1.04rem;
+        line-height: 1.8;
+        color: var(--ink);
+      }
+
+      .modal-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .highlight {
+        font-weight: 800;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink {
+        0%, 49% {
+          opacity: 1;
+        }
+        50%, 100% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .page {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+
+        .hero {
+          padding-top: 20px;
+        }
+
+        .title-line {
+          white-space: normal;
+          width: 100%;
+          animation: none;
+          overflow: visible;
+        }
+
+        .cursor {
+          display: none;
+        }
+
+        .cta {
+          justify-content: flex-start;
+        }
+
+        .btn {
+          flex: 1 1 150px;
+        }
+
+        .footer-wrap {
+          gap: 10px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <main class="hero">
+        <div class="hero-inner">
+          <h1 class="title" aria-label="Coding: Don't Panic, It's Just Text!">
+            <span class="title-line line-1" data-text="Coding:">Coding:</span>
+            <span class="title-line line-2" data-text="Don't Panic,">Don't Panic,</span>
+            <span class="title-line line-3" data-text="It's Just">It's Just</span>
+            <span class="title-line line-4" data-text="Text!">Text!</span>
+          </h1>
+
+          <p class="tagline">
+            <strong>A starter kit to understand coding.</strong><br />
+            HTML is structure. CSS is style. JS is brain.
+          </p>
+
+          <div class="cta">
+            <button class="btn btn-secondary" id="aboutBtn" type="button">About</button>
+            <a href="content.html" class="btn btn-primary">Start</a>
+          </div>
+        </div>
+      </main>
+
+      <div class="divider"></div>
+
+      <footer>
+        <div class="footer-wrap">
+          <span class="footer-item">Goodwall X GitHub</span>
+          <span class="footer-item hash">#MyFirstWebsite</span>
+          <span class="footer-item user">@siEpan</span>
+        </div>
+      </footer>
+    </div>
+
+    <div class="modal" id="aboutModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+        <button class="close-btn" id="closeModal" aria-label="Close about panel">×</button>
+        <h2 id="aboutTitle">About This Website</h2>
+
+        <p>
+          Made with curiosity by a first-time builder.
+        </p>
+
+        <p>
+          <span class="highlight">Coding is just text with color</span> — no magic, just boxes, styles, and logic.
+        </p>
+
+        <p>
+          This site helps you explore HTML, CSS, and JavaScript in a simple, beginner-friendly way.
+        </p>
+
+        <p>
+          P.S. Python? Let’s keep it in the wild 🐍
+        </p>
+
+        <p>
+          Built for <span class="highlight">#MyFirstWebsite</span> — a project on GOODWALL x GitHub.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const titleLines = document.querySelectorAll(".title-line");
+
+      const typeLine = (element, text, delay) => {
+        return new Promise((resolve) => {
+          let index = 0;
+          element.textContent = "";
+          const cursor = document.createElement("span");
+          cursor.className = "cursor";
+          element.appendChild(cursor);
+
+          const timer = setInterval(() => {
+            if (index < text.length) {
+              element.insertBefore(
+                document.createTextNode(text[index]),
+                cursor
+              );
+              index++;
+            } else {
+              clearInterval(timer);
+              setTimeout(resolve, 120);
+            }
+          }, 90);
+
+          element.style.setProperty("--delay", `${delay}ms`);
+        });
+      };
+
+      async function runTypingEffect() {
+        const texts = [
+          "Coding:",
+          "Don't Panic,",
+          "It's Just",
+          "Text!"
+        ];
+
+        for (let i = 0; i < titleLines.length; i++) {
+          const line = titleLines[i];
+          const text = texts[i];
+          await typeLine(line, text, i * 250);
+        }
+      }
+
+      runTypingEffect();
+
+      const modal = document.getElementById("aboutModal");
+      const aboutBtn = document.getElementById("aboutBtn");
+      const closeBtn = document.getElementById("closeModal");
+
+      function openModal() {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      aboutBtn.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>
