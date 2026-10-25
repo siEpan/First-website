@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Playground</title>
+    <style>
+      :root {
+        --bg: #f6f5f2;
+        --paper: #ffffff;
+        --ink: #111111;
+        --muted: #4e4e4e;
+        --blue: #1aa7ff;
+        --green: #32d59e;
+        --orange: #ffb347;
+        --pink: #ff4fb2;
+        --border: rgba(17, 17, 17, 0.12);
+        --shadow: rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 24px 0 20px;
+      }
+
+      header {
+        padding-bottom: 18px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .brand-small {
+        font-size: 0.85rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+        text-transform: none;
+      }
+
+      .brand-small a {
+        color: var(--ink);
+      }
+
+      .brand-small a:hover {
+        color: var(--blue);
+      }
+
+      .home-link {
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+
+      .home-link:hover {
+        color: var(--pink);
+      }
+
+      .title-wrap {
+        padding-top: 10px;
+      }
+
+      .main-title {
+        margin: 0;
+        font-size: clamp(2.6rem, 7vw, 6.5rem);
+        line-height: 0.82;
+        letter-spacing: -0.08em;
+        font-weight: 900;
+        color: var(--pink);
+        text-align: left;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .card {
+        background: var(--paper);
+        border: 2px solid var(--card-color);
+        border-radius: 20px;
+        padding: 20px 20px 18px;
+        box-shadow: 0 10px 28px var(--shadow);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(17, 17, 17, 0.08);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .topic-tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: rgba(17, 17, 17, 0.03);
+        border: 1px solid var(--card-color);
+      }
+
+      .topic-title {
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.3rem);
+        line-height: 1.1;
+        letter-spacing: -0.05em;
+        font-weight: 900;
+        color: var(--ink);
+      }
+
+      .card p {
+        margin: 14px 0 18px;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .card-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 130px;
+        padding: 11px 16px;
+        border-radius: 999px;
+        border: 2px solid var(--card-color);
+        background: transparent;
+        color: var(--ink);
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .card-btn:hover {
+        background: rgba(17, 17, 17, 0.03);
+        transform: translateY(-1px);
+      }
+
+      .card-btn.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .card-btn.disabled:hover {
+        background: transparent;
+        transform: none;
+      }
+
+      .html-card {
+        --card-color: var(--blue);
+      }
+
+      .css-card {
+        --card-color: var(--green);
+      }
+
+      .js-card {
+        --card-color: var(--orange);
+      }
+
+      .python-card {
+        --card-color: var(--pink);
+        opacity: 0.86;
+      }
+
+      .python-card .card-btn {
+        border-style: dashed;
+      }
+
+      .divider {
+        border-top: 1px solid rgba(17, 17, 17, 0.18);
+        margin-top: 32px;
+      }
+
+      footer {
+        padding: 18px 0 24px;
+      }
+
+      .footer-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 18px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .footer-item {
+        color: var(--ink);
+      }
+
+      .footer-item.hash {
+        color: var(--pink);
+      }
+
+      .footer-item.user {
+        color: var(--blue);
+      }
+
+      @media (max-width: 700px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          justify-content: flex-start;
+        }
+
+        .card {
+          padding: 18px 16px 16px;
+        }
+
+        .footer-wrap {
+          gap: 10px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="topbar">
+          <div class="brand-small">
+            <a href="index.html">Coding: Don’t Panic, It’s Just Text!</a>
+          </div>
+          <a href="index.html" class="home-link">Home</a>
+        </div>
+      </header>
+
+      <main>
+        <div class="title-wrap">
+          <h1 class="main-title">The Playground</h1>
+        </div>
+
+        <section class="cards">
+          <article class="card html-card">
+            <div class="card-header">
+              <span class="topic-tag">HTML</span>
+            </div>
+            <h2 class="topic-title">HTML</h2>
+            <p>
+              Learn how the structure of a webpage is built using headings, paragraphs, links, and sections.
+            </p>
+            <a href="html.html" class="card-btn">Open lesson</a>
+          </article>
+
+          <article class="card css-card">
+            <div class="card-header">
+              <span class="topic-tag">CSS</span>
+            </div>
+            <h2 class="topic-title">CSS</h2>
+            <p>
+              Learn how to style your pages with colors, spacing, layout, and design choices that bring ideas to life.
+            </p>
+            <a href="css.html" class="card-btn">Open lesson</a>
+          </article>
+
+          <article class="card js-card">
+            <div class="card-header">
+              <span class="topic-tag">JS</span>
+            </div>
+            <h2 class="topic-title">JavaScript</h2>
+            <p>
+              Learn how to add interaction and logic so your page can respond to users and dynamic events.
+            </p>
+            <a href="javascript.html" class="card-btn">Open lesson</a>
+          </article>
+
+          <article class="card python-card">
+            <div class="card-header">
+              <span class="topic-tag">PY</span>
+            </div>
+            <h2 class="topic-title">Python</h2>
+            <p>
+              A bonus topic for later. This space is for beginner logic and the next step in your coding journey.
+            </p>
+            <span class="card-btn disabled">Coming Soon</span>
+          </article>
+        </section>
+      </main>
+
+      <div class="divider"></div>
+
+      <footer>
+        <div class="footer-wrap">
+          <span class="footer-item">Goodwall X GitHub</span>
+          <span class="footer-item hash">#MyFirstWebsite</span>
+          <span class="footer-item user">@siEpan</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
