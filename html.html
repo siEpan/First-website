@@ -133,9 +133,6 @@
       }
 
       .code-demo-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         margin-bottom: 12px;
       }
 
@@ -180,7 +177,7 @@
         border: 1px solid rgba(26, 167, 255, 0.2);
         border-radius: 18px;
         padding: 18px;
-        min-height: 240px;
+        min-height: 220px;
       }
 
       .info-box h3 {
@@ -367,13 +364,13 @@
             <div class="code-lines">
               <div class="tag tag-blue" data-desc="This creates the main heading of the page.">
                 &lt;h1&gt;Hello World!&lt;/h1&gt;
-              </div><br />
+              </div><br>
               <div class="tag tag-orange" data-desc="This creates a normal paragraph of text.">
                 &lt;p&gt;This is a short paragraph.&lt;/p&gt;
-              </div><br />
+              </div><br>
               <div class="tag tag-green" data-desc="This creates a clickable link to another page.">
                 &lt;a href='https://example.com'&gt;Visit here&lt;/a&gt;
-              </div><br />
+              </div><br>
               <div class="tag tag-pink" data-desc="This creates a list item inside an unordered list.">
                 &lt;li&gt;Learn HTML&lt;/li&gt;
               </div>
@@ -383,9 +380,7 @@
 
         <aside class="info-box" id="infoBox">
           <h3>Tag Function</h3>
-          <p>
-            Hover or click a tag to see what it does.
-          </p>
+          <p>Hover or click a tag to see what it does.</p>
         </aside>
       </main>
 
@@ -426,17 +421,11 @@
         const description = tag.getAttribute("data-desc");
 
         tag.addEventListener("mouseenter", () => {
-          infoBox.innerHTML = `
-            <h3>Tag Function</h3>
-            <p>${description}</p>
-          `;
+          infoBox.innerHTML = "<h3>Tag Function</h3><p>" + description + "</p>";
         });
 
         tag.addEventListener("click", () => {
-          infoBox.innerHTML = `
-            <h3>Tag Function</h3>
-            <p>${description}</p>
-          `;
+          infoBox.innerHTML = "<h3>Tag Function</h3><p>" + description + "</p>";
         });
       });
 
@@ -445,16 +434,16 @@
       const runBtn = document.getElementById("runBtn");
 
       function updatePreview() {
-        const html = editor.value;
-        const doc = `
-          <!DOCTYPE html>
+        const userHtml = editor.value;
+        const fullDoc = `
+          <!doctype html>
           <html>
-            <body style="font-family: Arial, sans-serif; padding: 20px; color: #111;">
-              ${html}
+            <body style="font-family: Arial, sans-serif; padding: 20px; color: #111; line-height: 1.6;">
+              ${userHtml}
             </body>
           </html>
         `;
-        previewFrame.srcdoc = doc;
+        previewFrame.srcdoc = fullDoc;
       }
 
       runBtn.addEventListener("click", updatePreview);
