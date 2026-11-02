@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Lesson</title>
+    <style>
+      :root {
+        --bg: #f6f5f2;
+        --paper: #ffffff;
+        --ink: #111111;
+        --muted: #4d4d4d;
+        --blue: #1aa7ff;
+        --green: #32d59e;
+        --green-dark: #1fab80;
+        --orange: #ffb347;
+        --pink: #ff4fb2;
+        --shadow: rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 22px 0 18px;
+      }
+
+      header {
+        padding-bottom: 10px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .brand-small {
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+      }
+
+      .brand-small a {
+        color: var(--ink);
+      }
+
+      .brand-small a:hover {
+        color: var(--green);
+      }
+
+      .home-link {
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+
+      .home-link:hover {
+        color: var(--pink);
+      }
+
+      .playground-title {
+        margin: 10px 0 0;
+        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        color: var(--pink);
+      }
+
+      .lesson-shell {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+      }
+
+      .panel {
+        background: var(--paper);
+        border: 2px solid var(--green);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px var(--shadow);
+        padding: 24px;
+      }
+
+      .subject-title {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.07em;
+        font-weight: 900;
+        color: var(--green);
+      }
+
+      .subject-text {
+        margin: 0 0 24px;
+        font-size: 1.04rem;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .code-demo {
+        margin-top: 18px;
+        background: #f7fff9;
+        border: 1px solid rgba(50, 213, 158, 0.2);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .code-demo-header {
+        margin-bottom: 12px;
+      }
+
+      .code-label {
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+
+      .code-lines {
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.95rem;
+        line-height: 1.9;
+        background: #f4fff9;
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid rgba(50, 213, 158, 0.18);
+      }
+
+      .prop {
+        display: inline-block;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, background 0.15s ease;
+      }
+
+      .prop:hover {
+        transform: translateY(-1px);
+        background: rgba(50, 213, 158, 0.08);
+      }
+
+      .blue { color: var(--blue); }
+      .green { color: var(--green); }
+      .orange { color: var(--orange); }
+      .pink { color: var(--pink); }
+
+      .info-box {
+        background: #f7fff9;
+        border: 1px solid rgba(50, 213, 158, 0.2);
+        border-radius: 18px;
+        padding: 18px;
+        min-height: 220px;
+      }
+
+      .info-box h3 {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+
+      .info-box p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--ink);
+      }
+
+      .test-card {
+        margin-top: 22px;
+        background: var(--paper);
+        border: 2px solid var(--green);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px var(--shadow);
+        padding: 22px;
+      }
+
+      .test-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .test-header h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        letter-spacing: -0.06em;
+        font-weight: 900;
+        color: var(--green);
+      }
+
+      .run-btn {
+        border: none;
+        background: var(--green);
+        color: white;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .run-btn:hover {
+        background: var(--green-dark);
+      }
+
+      .editor-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 260px;
+        resize: vertical;
+        border: 2px solid rgba(50, 213, 158, 0.25);
+        border-radius: 16px;
+        background: #f9fff9;
+        padding: 16px;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.92rem;
+        color: var(--ink);
+        outline: none;
+      }
+
+      textarea:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 4px rgba(50, 213, 158, 0.08);
+      }
+
+      .preview {
+        border: 2px solid rgba(50, 213, 158, 0.25);
+        background: #f9fff9;
+        border-radius: 16px;
+        min-height: 260px;
+        padding: 18px;
+      }
+
+      .preview-label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+
+      .preview-box {
+        width: 100%;
+        min-height: 200px;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        border-radius: 12px;
+        background: white;
+        padding: 18px;
+      }
+
+      .sample-box {
+        background: #d9f9ee;
+        border: 3px solid var(--green);
+        border-radius: 16px;
+        padding: 18px;
+        text-align: center;
+        font-weight: 800;
+        color: var(--ink);
+      }
+
+      .divider {
+        border-top: 1px solid rgba(17, 17, 17, 0.18);
+        margin-top: 28px;
+      }
+
+      footer {
+        padding: 18px 0 20px;
+      }
+
+      .footer-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 18px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .footer-item {
+        color: var(--ink);
+      }
+
+      .footer-item.hash {
+        color: var(--pink);
+      }
+
+      .footer-item.user {
+        color: var(--blue);
+      }
+
+      @media (max-width: 860px) {
+        .lesson-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .editor-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-wrap {
+          gap: 10px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="topbar">
+          <div class="brand-small">
+            <a href="index.html">Coding: Don’t Panic, It’s Just Text!</a>
+          </div>
+          <a href="content.html" class="home-link">Playground</a>
+        </div>
+      </header>
+
+      <h2 class="playground-title">The Playground</h2>
+
+      <main class="lesson-shell">
+        <section class="panel">
+          <h1 class="subject-title">CSS</h1>
+          <p class="subject-text">
+            CSS is what makes a webpage look good. It controls color, layout, spacing, borders, and style.
+            If HTML is the structure, CSS is the design layer that makes it feel clean, modern, and readable.
+          </p>
+
+          <div class="code-demo">
+            <div class="code-demo-header">
+              <span class="code-label">Common properties</span>
+            </div>
+
+            <div class="code-lines">
+              <div class="prop green" data-desc="Changes the text color.">
+                color: blue;
+              </div><br>
+              <div class="prop blue" data-desc="Adds space around the inside of an element.">
+                padding: 20px;
+              </div><br>
+              <div class="prop orange" data-desc="Adds space outside the element.">
+                margin: 30px;
+              </div><br>
+              <div class="prop pink" data-desc="Adds a border around the element.">
+                border: 3px solid green;
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="info-box" id="infoBox">
+          <h3>CSS Property</h3>
+          <p>Hover or click a property to see what it does.</p>
+        </aside>
+      </main>
+
+      <section class="test-card">
+        <div class="test-header">
+          <h3>Try it yourself</h3>
+          <button class="run-btn" id="runBtn">Run</button>
+        </div>
+
+        <div class="editor-layout">
+          <textarea id="cssEditor" spellcheck="false">.demo {
+  background: #dff9ee;
+  border: 3px solid #32d59e;
+  border-radius: 18px;
+  padding: 20px;
+  color: #111;
+  font-weight: 800;
+  text-align: center;
+}</textarea>
+
+          <div class="preview">
+            <span class="preview-label">Result</span>
+            <div class="preview-box" id="cssPreview">
+              <div class="sample-box">This is a styled box</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <footer>
+        <div class="footer-wrap">
+          <span class="footer-item">Goodwall X GitHub</span>
+          <span class="footer-item hash">#MyFirstWebsite</span>
+          <span class="footer-item user">@siEpan</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const infoBox = document.getElementById("infoBox");
+      const tagItems = document.querySelectorAll(".prop");
+
+      tagItems.forEach((item) => {
+        const description = item.getAttribute("data-desc");
+        item.addEventListener("mouseenter", () => {
+          infoBox.innerHTML = "<h3>CSS Property</h3><p>" + description + "</p>";
+        });
+        item.addEventListener("click", () => {
+          infoBox.innerHTML = "<h3>CSS Property</h3><p>" + description + "</p>";
+        });
+      });
+
+      const cssEditor = document.getElementById("cssEditor");
+      const cssPreview = document.getElementById("cssPreview");
+      const runBtn = document.getElementById("runBtn");
+
+      function updateCSSPreview() {
+        const css = cssEditor.value;
+        cssPreview.innerHTML = `
+          <div class="sample-box" style="${css}">
+            This is a styled box
+          </div>
+        `;
+      }
+
+      runBtn.addEventListener("click", updateCSSPreview);
+      cssEditor.addEventListener("input", updateCSSPreview);
+
+      updateCSSPreview();
+    </script>
+  </body>
+</html>
