@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Lesson</title>
+    <style>
+      :root {
+        --bg: #f6f5f2;
+        --paper: #ffffff;
+        --ink: #111111;
+        --muted: #4d4d4d;
+        --blue: #1aa7ff;
+        --green: #32d59e;
+        --orange: #ffb347;
+        --orange-dark: #e38d19;
+        --pink: #ff4fb2;
+        --shadow: rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 22px 0 18px;
+      }
+
+      header {
+        padding-bottom: 10px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .brand-small {
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: var(--ink);
+      }
+
+      .brand-small a {
+        color: var(--ink);
+      }
+
+      .brand-small a:hover {
+        color: var(--orange);
+      }
+
+      .home-link {
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+
+      .home-link:hover {
+        color: var(--pink);
+      }
+
+      .playground-title {
+        margin: 10px 0 0;
+        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        color: var(--pink);
+      }
+
+      .lesson-shell {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+      }
+
+      .panel {
+        background: var(--paper);
+        border: 2px solid var(--orange);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px var(--shadow);
+        padding: 24px;
+      }
+
+      .subject-title {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.07em;
+        font-weight: 900;
+        color: var(--orange);
+      }
+
+      .subject-text {
+        margin: 0 0 24px;
+        font-size: 1.04rem;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .code-demo {
+        margin-top: 18px;
+        background: #fffaf4;
+        border: 1px solid rgba(255, 179, 71, 0.2);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .code-demo-header {
+        margin-bottom: 12px;
+      }
+
+      .code-label {
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+
+      .code-lines {
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.95rem;
+        line-height: 1.9;
+        background: #fffaf4;
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid rgba(255, 179, 71, 0.18);
+      }
+
+      .js-item {
+        display: inline-block;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 8px;
+        transition: transform 0.15s ease, background 0.15s ease;
+      }
+
+      .js-item:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 179, 71, 0.08);
+      }
+
+      .item-blue { color: var(--blue); }
+      .item-green { color: var(--green); }
+      .item-orange { color: var(--orange); }
+      .item-pink { color: var(--pink); }
+
+      .info-box {
+        background: #fffaf4;
+        border: 1px solid rgba(255, 179, 71, 0.2);
+        border-radius: 18px;
+        padding: 18px;
+        min-height: 220px;
+      }
+
+      .info-box h3 {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+
+      .info-box p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--ink);
+      }
+
+      .test-card {
+        margin-top: 22px;
+        background: var(--paper);
+        border: 2px solid var(--orange);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px var(--shadow);
+        padding: 22px;
+      }
+
+      .test-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .test-header h3 {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        letter-spacing: -0.06em;
+        font-weight: 900;
+        color: var(--orange);
+      }
+
+      .run-btn {
+        border: none;
+        background: var(--orange);
+        color: white;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .run-btn:hover {
+        background: var(--orange-dark);
+      }
+
+      .editor-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 260px;
+        resize: vertical;
+        border: 2px solid rgba(255, 179, 71, 0.25);
+        border-radius: 16px;
+        background: #fffaf4;
+        padding: 16px;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.92rem;
+        color: var(--ink);
+        outline: none;
+      }
+
+      textarea:focus {
+        border-color: var(--orange);
+        box-shadow: 0 0 0 4px rgba(255, 179, 71, 0.08);
+      }
+
+      .preview {
+        border: 2px solid rgba(255, 179, 71, 0.25);
+        background: #fffaf4;
+        border-radius: 16px;
+        min-height: 260px;
+        padding: 18px;
+      }
+
+      .preview-label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+
+      .preview-box {
+        width: 100%;
+        min-height: 200px;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        border-radius: 12px;
+        background: white;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .message {
+        font-size: 2rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        color: var(--orange);
+      }
+
+      .divider {
+        border-top: 1px solid rgba(17, 17, 17, 0.18);
+        margin-top: 28px;
+      }
+
+      footer {
+        padding: 18px 0 20px;
+      }
+
+      .footer-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 18px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .footer-item {
+        color: var(--ink);
+      }
+
+      .footer-item.hash {
+        color: var(--pink);
+      }
+
+      .footer-item.user {
+        color: var(--blue);
+      }
+
+      @media (max-width: 860px) {
+        .lesson-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .editor-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-wrap {
+          gap: 10px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="topbar">
+          <div class="brand-small">
+            <a href="index.html">Coding: Don’t Panic, It’s Just Text!</a>
+          </div>
+          <a href="content.html" class="home-link">Playground</a>
+        </div>
+      </header>
+
+      <h2 class="playground-title">The Playground</h2>
+
+      <main class="lesson-shell">
+        <section class="panel">
+          <h1 class="subject-title">JavaScript</h1>
+          <p class="subject-text">
+            JavaScript adds interaction to a webpage. It helps pages react to clicks, button presses, form input,
+            and other user actions. If HTML gives structure and CSS gives style, JavaScript gives behavior.
+          </p>
+
+          <div class="code-demo">
+            <div class="code-demo-header">
+              <span class="code-label">Common ideas</span>
+            </div>
+
+            <div class="code-lines">
+              <div class="js-item item-blue" data-desc="A variable stores information.">
+                let message = 'Hello!';
+              </div><br>
+              <div class="js-item item-green" data-desc="A function contains reusable code.">
+                function greet() { ... }
+              </div><br>
+              <div class="js-item item-orange" data-desc="An event happens when the user interacts with the page.">
+                button.addEventListener('click', ...)
+              </div><br>
+              <div class="js-item item-pink" data-desc="This can change text or style on the page.">
+                document.querySelector(...)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="info-box" id="infoBox">
+          <h3>JavaScript Idea</h3>
+          <p>Hover or click a concept to see what it does.</p>
+        </aside>
+      </main>*
